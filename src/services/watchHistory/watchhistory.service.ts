@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import * as persist from '#src/utils/persist';
 import type { PlaylistItem } from '#types/playlist';
 import type { SerializedWatchHistoryItem, WatchHistoryItem } from '#types/watchHistory';
-import type ApiService from '#src/services/api/api.service';
+import type ApiService from '#src/services/api.service';
 import type { Customer } from '#types/account';
 import { SERVICES } from '#src/ioc/types';
 

@@ -15,7 +15,7 @@ import registerCustomScreens from '#src/screenMapping';
 import { initApp } from '#src/init/initApp';
 import { useController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
-import type SettingsController from '#src/controllers/SettingsController';
+import type SettingsController from '#src/stores/SettingsController';
 
 const Root: FC = () => {
   const { t } = useTranslation('error');

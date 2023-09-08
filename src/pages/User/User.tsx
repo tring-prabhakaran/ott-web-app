@@ -20,11 +20,11 @@ import Favorite from '#src/icons/Favorite';
 import { useAccountStore } from '#src/stores/AccountStore';
 import { useConfigStore } from '#src/stores/ConfigStore';
 import { ACCESS_MODEL, PersonalShelf } from '#src/config';
-import type FavoritesController from '#src/controllers/FavoritesController';
+import type FavoritesController from '#src/stores/FavoritesController';
 import { mediaURL } from '#src/utils/formatting';
 import type { PlaylistItem } from '#types/playlist';
-import type AccountController from '#src/controllers/AccountController';
-import type CheckoutController from '#src/controllers/CheckoutController';
+import type AccountController from '#src/stores/AccountController';
+import type CheckoutController from '#src/stores/CheckoutController';
 import { useController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 

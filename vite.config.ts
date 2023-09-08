@@ -51,15 +51,10 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => {
   return defineConfig({
     // https://github.com/jwplayer/ott-web-app/pull/346
     plugins: [
-      // @ts-expect-error
       react(),
-      // @ts-expect-error
       eslintPlugin({ emitError: mode === 'production' || mode === 'demo' || mode === 'preview' }), // Move linting to pre-build to match dashboard
-      // @ts-expect-error
       StylelintPlugin(),
-      // @ts-expect-error
       VitePWA(),
-      // @ts-expect-error
       createHtmlPlugin({
         minify: true,
         inject: process.env.APP_GOOGLE_SITE_VERIFICATION_ID
@@ -77,7 +72,6 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => {
             }
           : {},
       }),
-      // @ts-expect-error
       viteStaticCopy({
         targets: fileCopyTargets,
       }),

@@ -26,7 +26,7 @@ import type CheckoutService from '#src/services/checkout/checkout.service';
 import { useFavoritesStore } from '#src/stores/FavoritesStore';
 import { useWatchHistoryStore } from '#src/stores/WatchHistoryStore';
 import { addQueryParams } from '#src/utils/formatting';
-import { simultaneousLoginWarningKey } from '#src/components/LoginForm/LoginForm';
+import { simultaneousLoginWarningKey } from '#components/LoginForm/LoginForm';
 import { ACCESS_MODEL } from '#src/config';
 
 enum NotificationsTypes {

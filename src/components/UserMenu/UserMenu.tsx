@@ -10,7 +10,7 @@ import Favorite from '#src/icons/Favorite';
 import BalanceWallet from '#src/icons/BalanceWallet';
 import Exit from '#src/icons/Exit';
 import MenuButton from '#components/MenuButton/MenuButton';
-import type AccountController from '#src/controllers/AccountController';
+import type AccountController from '#src/stores/AccountController';
 import { useController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 

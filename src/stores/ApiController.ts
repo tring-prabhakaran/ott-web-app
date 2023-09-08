@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 
 import type { GetPlaylistParams, Playlist, PlaylistItem } from '#types/playlist';
 import { SERVICES } from '#src/ioc/types';
-import type ApiService from '#src/services/api/api.service';
+import type ApiService from '#src/services/api.service';
 import type { AdSchedule } from '#types/ad-schedule';
 import type { EpisodeInSeries, EpisodesWithPagination, GetSeriesParams, Series } from '#types/series';
 

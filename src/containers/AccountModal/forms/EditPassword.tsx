@@ -9,7 +9,7 @@ import useForm, { UseFormOnSubmitHandler } from '#src/hooks/useForm';
 import { addQueryParams } from '#src/utils/formatting';
 import { useAccountStore } from '#src/stores/AccountStore';
 import useQueryParam from '#src/hooks/useQueryParam';
-import type AccountController from '#src/controllers/AccountController';
+import type AccountController from '#src/stores/AccountController';
 import { useController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 

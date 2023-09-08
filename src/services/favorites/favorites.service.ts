@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 
-import type ApiService from '../api/api.service';
+import type ApiService from '../api.service';
 
 import * as persist from '#src/utils/persist';
 import type { Favorite, SerializedFavorite } from '#types/favorite';

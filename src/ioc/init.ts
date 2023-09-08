@@ -14,21 +14,21 @@ import CheckoutJWService from '#src/services/checkout/jw.checkout.service';
 import SubscriptionJWService from '#src/services/subscription/jw.subscription.service';
 import SubscriptionCleengService from '#src/services/subscription/cleeng.subscription.service';
 import CleengService from '#src/services/cleeng/cleeng.service';
-import ApiService from '#src/services/api/api.service';
+import ApiService from '#src/services/api.service';
 import EntitlementService from '#src/services/entitlement/entitlement.service';
 import WatchHistoryService from '#src/services/watchHistory/watchhistory.service';
 import FavoritesService from '#src/services/favorites/favorites.service';
 
 // Controllers
-import WatchHistoryController from '#src/controllers/WatchHistoryController';
-import AccountController from '#src/controllers/AccountController';
-import ConfigController from '#src/controllers/ConfigController';
-import FavoritesController from '#src/controllers/FavoritesController';
-import SettingsController from '#src/controllers/SettingsController';
-import EpgController from '#src/controllers/EpgController';
-import ApiController from '#src/controllers/ApiController';
-import EntitlementController from '#src/controllers/EntitlementController';
-import CheckoutController from '#src/controllers/CheckoutController';
+import WatchHistoryController from '#src/stores/WatchHistoryController';
+import AccountController from '#src/stores/AccountController';
+import ConfigController from '#src/stores/ConfigController';
+import FavoritesController from '#src/stores/FavoritesController';
+import SettingsController from '#src/stores/SettingsController';
+import EpgController from '#src/stores/EpgController';
+import ApiController from '#src/stores/ApiController';
+import EntitlementController from '#src/stores/EntitlementController';
+import CheckoutController from '#src/stores/CheckoutController';
 
 const CLEENG_SERVICES = {
   [SERVICES.Cleeng]: CleengService,

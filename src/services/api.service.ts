@@ -1,7 +1,7 @@
 import { parseISO } from 'date-fns';
 import { injectable } from 'inversify';
 
-import { getMediaStatusFromEventState } from '../../utils/liveEvent';
+import { getMediaStatusFromEventState } from '../utils/liveEvent';
 
 import { addQueryParams } from '#src/utils/formatting';
 import { getDataOrThrow } from '#src/utils/api';
