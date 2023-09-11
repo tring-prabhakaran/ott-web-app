@@ -21,8 +21,6 @@ import { useAccountStore } from '#src/stores/AccountStore';
 import { useConfigStore } from '#src/stores/ConfigStore';
 import { ACCESS_MODEL, PersonalShelf } from '#src/config';
 import type FavoritesController from '#src/stores/FavoritesController';
-import { mediaURL } from '#src/utils/formatting';
-import type { PlaylistItem } from '#types/playlist';
 import type AccountController from '#src/stores/AccountController';
 import type CheckoutController from '#src/stores/CheckoutController';
 import { useController } from '#src/ioc/container';
@@ -48,7 +46,6 @@ const User = (): JSX.Element => {
   const isLargeScreen = breakpoint > Breakpoint.md;
   const { user: customer, subscription, loading, canUpdateEmail } = useAccountStore();
 
-  const onCardClick = (playlistItem: PlaylistItem) => navigate(mediaURL({ media: playlistItem }));
   const onLogout = useCallback(async () => {
     // Empty customer on a user page leads to navigate (code bellow), so we don't repeat it here
     await accountController.logout();
@@ -117,7 +114,6 @@ const User = (): JSX.Element => {
                         playlist={playlist}
                         error={error}
                         isLoading={isLoading}
-                        onCardClick={onCardClick}
                         onClearFavoritesClick={() => setClearFavoritesOpen(true)}
                         accessModel={accessModel}
                         hasSubscription={!!subscription}

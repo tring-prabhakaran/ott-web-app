@@ -1,3 +1,5 @@
+import { act } from '@testing-library/react';
+
 import User from './User';
 
 import { useAccountStore } from '#src/stores/AccountStore';
@@ -80,17 +82,16 @@ vi.mock('#src/ioc/container', () => ({
 describe('User Component tests', () => {
   test('Account Page', () => {
     useAccountStore.setState(data);
-
     mockWindowLocation('my-account');
     const { container } = renderWithRouter(<User />);
 
     expect(container).toMatchSnapshot();
   });
 
-  test('Payments Page', () => {
+  test('Payments Page', async () => {
     useAccountStore.setState(data);
     mockWindowLocation('payments');
-    const { container } = renderWithRouter(<User />);
+    const { container } = await act(() => renderWithRouter(<User />));
 
     expect(container).toMatchSnapshot();
   });

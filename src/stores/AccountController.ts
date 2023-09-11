@@ -212,10 +212,7 @@ export default class AccountController {
     useAccountStore.setState({ loading: false });
   }
 
-  async logout() {
-    // this invalidates all entitlements caches which makes the useEntitlement hook to verify the entitlements.
-    await queryClient.invalidateQueries('entitlements');
-
+  private async clearLoginState() {
     useAccountStore.setState({
       user: null,
       subscription: null,
@@ -228,7 +225,15 @@ export default class AccountController {
 
     await this.favoritesController.restoreFavorites();
     await this.watchHistoryController.restoreWatchHistory();
-    await this.accountService?.logout();
+  }
+
+  async logout(logoutOptions: { includeNetworkRequest: boolean } = { includeNetworkRequest: true }) {
+    // this invalidates all entitlements caches which makes the useEntitlement hook to verify the entitlements.
+    await queryClient.invalidateQueries('entitlements');
+    await this.clearLoginState();
+    if (logoutOptions.includeNetworkRequest) {
+      this.accountService?.logout();
+    }
   }
 
   async register(email: string, password: string) {

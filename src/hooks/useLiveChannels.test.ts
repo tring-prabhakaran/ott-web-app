@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'vitest';
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react';
 
 import type { EpgChannel } from '#types/epg';
 import useLiveChannels from '#src/hooks/useLiveChannels';
-import { createWrapper } from '#test/testUtils';
+import { createWrapper, waitForWithFakeTimers } from '#test/testUtils';
 import type { Playlist } from '#types/playlist';
 import livePlaylistFixture from '#test/fixtures/livePlaylist.json';
 import epgChannelsFixture from '#test/fixtures/epgChannels.json';
@@ -37,14 +37,16 @@ describe('useLiveChannels', () => {
 
   test('gets the date using the EPG service getSchedules method', async () => {
     const mock = mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, ''), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: '' }), {
+      wrapper: createWrapper(),
+    });
 
     // initial empty channels
     expect(result.current.channels).toEqual([]);
     expect(result.current.channel).toBeUndefined();
     expect(result.current.program).toBeUndefined();
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     expect(mock).toHaveBeenCalledOnce();
     expect(mock).toHaveBeenCalledWith(livePlaylist.playlist);
@@ -57,9 +59,11 @@ describe('useLiveChannels', () => {
 
   test('selects the initial channel based of the initialChannelId', async () => {
     mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, 'channel2'), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: 'channel2' }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // second channel selected (initial channel id)
     expect(result.current.channel).toEqual(schedule[1]);
@@ -69,9 +73,11 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T10:45:00Z'));
 
     mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // select live program on first channel
     expect(result.current.program).toMatchObject({ id: 'program2' });
@@ -81,17 +87,22 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T09:00:00Z'));
 
     mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // no program is selected
     expect(result.current.program).toBeUndefined();
 
     // update time to next program
-    vi.setSystemTime(new Date('2022-07-15T10:01:00Z'));
-    vi.runOnlyPendingTimers();
-    await waitForNextUpdate();
+    act(() => {
+      vi.setSystemTime(new Date('2022-07-15T10:01:00Z'));
+      vi.runOnlyPendingTimers();
+    });
+
+    await waitForWithFakeTimers();
 
     expect(result.current.program).toMatchObject({ id: 'program1' });
   });
@@ -100,17 +111,21 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T10:15:00Z'));
 
     mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // first program is selected
     expect(result.current.program).toMatchObject({ id: 'program1' });
 
     // update time to next program
-    vi.setSystemTime(new Date('2022-07-15T10:31:00Z'));
-    vi.runOnlyPendingTimers();
-    await waitForNextUpdate();
+    act(() => {
+      vi.setSystemTime(new Date('2022-07-15T10:31:00Z'));
+      vi.runOnlyPendingTimers();
+    });
+    await waitForWithFakeTimers();
 
     expect(result.current.program).toMatchObject({ id: 'program2' });
   });
@@ -119,17 +134,21 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T10:15:00Z'));
 
     mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // first program is selected
     expect(result.current.program).toMatchObject({ id: 'program1' });
 
     // update time to next program
-    vi.setSystemTime(new Date('2022-07-15T10:31:00Z'));
-    vi.runOnlyPendingTimers();
-    await waitForNextUpdate();
+    act(() => {
+      vi.setSystemTime(new Date('2022-07-15T10:31:00Z'));
+      vi.runOnlyPendingTimers();
+    });
+    await waitForWithFakeTimers();
 
     expect(result.current.program).toMatchObject({ id: 'program2' });
   });
@@ -138,21 +157,27 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T10:15:00Z'));
 
     mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // first program is selected
     expect(result.current.program).toMatchObject({ id: 'program1' });
 
-    result.current.setActiveChannel('channel2');
+    act(() => {
+      result.current.setActiveChannel('channel2');
+    });
 
     // channel 2 should be selected and program 3 which is live
     expect(result.current.channel).toMatchObject({ id: 'channel2' });
     expect(result.current.program).toMatchObject({ id: 'program3' });
 
     // update channel and program
-    result.current.setActiveChannel('channel1', 'program2');
+    act(() => {
+      result.current.setActiveChannel('channel1', 'program2');
+    });
 
     expect(result.current.channel).toMatchObject({ id: 'channel1' });
     expect(result.current.program).toMatchObject({ id: 'program2' });
@@ -162,14 +187,18 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T10:15:00Z'));
 
     mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // first program is selected
     expect(result.current.program).toMatchObject({ id: 'program1' });
 
-    result.current.setActiveChannel('channel3', 'program5');
+    act(() => {
+      result.current.setActiveChannel('channel3', 'program5');
+    });
 
     // channel 1 should still be selected
     expect(result.current.channel).toMatchObject({ id: 'channel1' });
@@ -180,9 +209,11 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T10:15:00Z'));
 
     const mock = mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // first program is selected
     expect(result.current.program).toMatchObject({ id: 'program1' });
@@ -190,9 +221,11 @@ describe('useLiveChannels', () => {
     expect(mock).toHaveBeenCalledTimes(1);
 
     mock.mockResolvedValue(scheduleUpdate);
-    vi.runOnlyPendingTimers();
+    act(() => {
+      vi.runOnlyPendingTimers();
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // the endTime for program1 should be changed
     expect(mock).toHaveBeenCalledTimes(2);
@@ -204,18 +237,22 @@ describe('useLiveChannels', () => {
     vi.setSystemTime(new Date('2022-07-15T11:05:00Z'));
 
     const mock = mockSchedule.mockResolvedValue(schedule);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // no program is selected (we have an outdated schedule)
     expect(result.current.program).toBeUndefined();
     expect(mock).toHaveBeenCalledTimes(1);
 
     mock.mockResolvedValue(scheduleUpdate);
-    vi.runOnlyPendingTimers();
+    act(() => {
+      vi.runOnlyPendingTimers();
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // the program should be updated to the live program with the updated data
     expect(mock).toHaveBeenCalledTimes(2);
@@ -227,18 +264,22 @@ describe('useLiveChannels', () => {
 
     // start with update schedule (which has more programs)
     const mock = mockSchedule.mockResolvedValue(scheduleUpdate);
-    const { result, waitForNextUpdate } = renderHook(() => useLiveChannels(livePlaylist.playlist, undefined), { wrapper: createWrapper() });
+    const { result } = renderHook(() => useLiveChannels({ playlist: livePlaylist.playlist, initialChannelId: undefined }), {
+      wrapper: createWrapper(),
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // program 5 is selected
     expect(result.current.program).toMatchObject({ id: 'program5' });
 
     // we use the default schedule data which doesn't have program5
     mock.mockResolvedValue(schedule);
-    vi.runOnlyPendingTimers();
+    act(() => {
+      vi.runOnlyPendingTimers();
+    });
 
-    await waitForNextUpdate();
+    await waitForWithFakeTimers();
 
     // the program should be undefined since it couldn't be found in the latest data
     expect(mock).toHaveBeenCalledTimes(2);

@@ -1,26 +1,26 @@
 import React from 'react';
+import { act } from '@testing-library/react';
 
 import Cinema from './Cinema';
 
 import { renderWithRouter } from '#test/testUtils';
 import type { PlaylistItem } from '#types/playlist';
 import { CONTROLLERS } from '#src/ioc/types';
+import playlistFixture from '#test/fixtures/playlist.json';
 
 vi.mock('#src/ioc/container', () => ({
   useController: (type: symbol) => {
     switch (type) {
       case CONTROLLERS.Api:
         return {
-          getPlaylistById: vi.fn(() => ({
-            id: 'fake_id',
-          })),
+          getPlaylistById: vi.fn(() => playlistFixture),
         };
     }
   },
 }));
 
 describe('<Cinema>', () => {
-  test('renders and matches snapshot', () => {
+  test('renders and matches snapshot', async () => {
     const item = {
       description: 'Test item description',
       duration: 354,
@@ -38,8 +38,12 @@ describe('<Cinema>', () => {
       title: 'Test item title',
       tracks: [],
     } as PlaylistItem;
-    const { container } = renderWithRouter(
-      <Cinema item={item} onPlay={() => null} onPause={() => null} open={true} title={item.title} primaryMetadata="Primary metadata" />,
+
+    vi.useFakeTimers();
+    vi.advanceTimersByTime(500);
+
+    const { container } = await act(() =>
+      renderWithRouter(<Cinema item={item} onPlay={() => null} onPause={() => null} open={true} title={item.title} primaryMetadata="Primary metadata" />),
     );
 
     expect(container).toMatchSnapshot();
