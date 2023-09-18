@@ -1,8 +1,7 @@
 import i18next from 'i18next';
 import { inject, injectable } from 'inversify';
 
-import type ApiService from '../api.service';
-
+import type ApiService from './api.service';
 import { configSchema } from './schema';
 
 import { calculateContrastColor } from '#src/utils/common';

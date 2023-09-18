@@ -34,7 +34,7 @@ interface SubscriptionDetails extends InplayerSubscription {
 }
 
 @injectable()
-export default class JWSubscriptionService implements SubscriptionService {
+export default class InplayerSubscriptionService implements SubscriptionService {
   private formatCardDetails(card: Card & { card_type: string; account_id: number; currency: string }): PaymentDetail {
     const { number, exp_month, exp_year, card_name, card_type, account_id, currency } = card;
     const zeroFillExpMonth = `0${exp_month}`.slice(-2);

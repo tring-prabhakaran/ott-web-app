@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import { SERVICES } from '#src/ioc/types';
-import type EntitlementService from '#src/services/entitlement/entitlement.service';
+import type EntitlementService from '#src/services/entitlement.service';
 import type { GetMediaParams } from '#types/media';
 
 @injectable()

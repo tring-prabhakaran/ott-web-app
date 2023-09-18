@@ -5,19 +5,19 @@ import { SERVICES, CONTROLLERS, IntegrationProvider, INTEGRATION_PROVIDER, IS_IN
 import { iocContainer } from './container';
 
 // Services
-import ConfigService from '#src/services/config/config.service';
-import EpgService from '#src/services/epg/epg.service';
-import AccountCleengService from '#src/services/account/cleeng.account.service';
-import AccountJWService from '#src/services/account/jw.account.service';
-import CheckoutCleengService from '#src/services/checkout/cleeng.checkout.service';
-import CheckoutJWService from '#src/services/checkout/jw.checkout.service';
-import SubscriptionJWService from '#src/services/subscription/jw.subscription.service';
-import SubscriptionCleengService from '#src/services/subscription/cleeng.subscription.service';
-import CleengService from '#src/services/cleeng/cleeng.service';
+import ConfigService from '#src/services/config.service';
+import EpgService from '#src/services/epg.service';
+import AccountCleengService from '#src/services/cleeng.account.service';
+import AccountJWService from '#src/services/inplayer.account.service';
+import CheckoutCleengService from '#src/services/cleeng.checkout.service';
+import CheckoutJWService from '#src/services/inplayer.checkout.service';
+import SubscriptionJWService from '#src/services/inplayer.subscription.service';
+import SubscriptionCleengService from '#src/services/cleeng.subscription.service';
+import CleengService from '#src/services/cleeng.service';
 import ApiService from '#src/services/api.service';
-import EntitlementService from '#src/services/entitlement/entitlement.service';
-import WatchHistoryService from '#src/services/watchHistory/watchhistory.service';
-import FavoritesService from '#src/services/favorites/favorites.service';
+import EntitlementService from '#src/services/entitlement.service';
+import WatchHistoryService from '#src/services/watchhistory.service';
+import FavoritesService from '#src/services/favorites.service';
 
 // Controllers
 import WatchHistoryController from '#src/stores/WatchHistoryController';

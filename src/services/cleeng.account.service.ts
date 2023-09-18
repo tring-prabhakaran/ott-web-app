@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 
 import type AccountService from './account.service';
 
-import type CleengService from '#src/services/cleeng/cleeng.service';
+import type CleengService from '#src/services/cleeng.service';
 import type { Config } from '#types/Config';
 import { getOverrideIP } from '#src/utils/common';
 import type {

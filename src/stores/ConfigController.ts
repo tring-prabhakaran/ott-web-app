@@ -2,7 +2,7 @@ import merge from 'lodash.merge';
 import { inject, injectable } from 'inversify';
 
 import { useConfigStore } from '#src/stores/ConfigStore';
-import type ConfigService from '#src/services/config/config.service';
+import type ConfigService from '#src/services/config.service';
 import { SERVICES } from '#src/ioc/types';
 
 @injectable()

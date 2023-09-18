@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 
-import type CleengService from '../cleeng/cleeng.service';
+import type CleengService from './cleeng.service';
 
 import { addQueryParams } from '#src/utils/formatting';
 import type {

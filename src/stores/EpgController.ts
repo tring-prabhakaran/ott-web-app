@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 
 import type { PlaylistItem } from '#types/playlist';
-import type EpgService from '#src/services/epg/epg.service';
+import type EpgService from '#src/services/epg.service';
 import { SERVICES } from '#src/ioc/types';
 
 @injectable()

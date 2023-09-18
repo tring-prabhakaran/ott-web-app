@@ -45,7 +45,7 @@ enum InPlayerEnv {
 }
 
 @injectable()
-export default class JWAccountService implements AccountService {
+export default class InplayerAccountService implements AccountService {
   public canUpdateEmail = false;
   public canSupportEmptyFullName = false;
   public canChangePasswordWithOldPassword = true;

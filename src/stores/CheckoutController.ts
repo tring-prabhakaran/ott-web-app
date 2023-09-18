@@ -24,9 +24,9 @@ import type {
 } from '#types/checkout';
 import { useCheckoutStore } from '#src/stores/CheckoutStore';
 import { CONTROLLERS, SERVICES } from '#src/ioc/types';
-import type CheckoutService from '#src/services/checkout/checkout.service';
+import type CheckoutService from '#src/services/checkout.service';
 import { useConfigStore } from '#src/stores/ConfigStore';
-import type SubscriptionService from '#src/services/subscription/subscription.service';
+import type SubscriptionService from '#src/services/subscription.service';
 
 @injectable()
 export default class CheckoutController {

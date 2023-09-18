@@ -4,11 +4,11 @@ import { inject, injectable, LazyServiceIdentifer, optional } from 'inversify';
 import { useAccountStore } from '#src/stores/AccountStore';
 import { useFavoritesStore } from '#src/stores/FavoritesStore';
 import { useConfigStore } from '#src/stores/ConfigStore';
-import type FavoritesService from '#src/services/favorites/favorites.service';
+import type FavoritesService from '#src/services/favorites.service';
 import type { PlaylistItem } from '#types/playlist';
 import { SERVICES } from '#src/ioc/types';
 import type { Favorite, SerializedFavorite } from '#types/favorite';
-import type AccountService from '#src/services/account/account.service';
+import type AccountService from '#src/services/account.service';
 import type { Customer } from '#types/account';
 
 @injectable()

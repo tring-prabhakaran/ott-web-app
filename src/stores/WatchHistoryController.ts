@@ -5,9 +5,9 @@ import { useConfigStore } from '#src/stores/ConfigStore';
 import { useWatchHistoryStore } from '#src/stores/WatchHistoryStore';
 import type { PlaylistItem } from '#types/playlist';
 import type { SerializedWatchHistoryItem, WatchHistoryItem } from '#types/watchHistory';
-import type WatchHistoryService from '#src/services/watchHistory/watchhistory.service';
+import type WatchHistoryService from '#src/services/watchhistory.service';
 import { SERVICES } from '#src/ioc/types';
-import type AccountService from '#src/services/account/account.service';
+import type AccountService from '#src/services/account.service';
 import type { Customer } from '#types/account';
 
 @injectable()
