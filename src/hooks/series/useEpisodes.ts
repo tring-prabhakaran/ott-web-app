@@ -4,7 +4,7 @@ import type { EpisodesWithPagination } from '#types/series';
 import type { Pagination } from '#types/pagination';
 import { SERIES_CACHE_TIME } from '#src/config';
 import type ApiController from '#src/stores/ApiController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 const getNextPageParam = (pagination: Pagination) => {
@@ -28,7 +28,7 @@ export const useEpisodes = (
   fetchNextPage: (params?: { pageParam?: number }) => void;
   isLoading: boolean;
 } => {
-  const apiController = useController<ApiController>(CONTROLLERS.Api);
+  const apiController = getController<ApiController>(CONTROLLERS.Api);
 
   const {
     data,

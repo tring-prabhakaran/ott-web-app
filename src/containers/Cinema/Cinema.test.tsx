@@ -9,7 +9,7 @@ import { CONTROLLERS } from '#src/ioc/types';
 import playlistFixture from '#test/fixtures/playlist.json';
 
 vi.mock('#src/ioc/container', () => ({
-  useController: (type: symbol) => {
+  getController: (type: symbol) => {
     switch (type) {
       case CONTROLLERS.Api:
         return {

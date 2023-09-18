@@ -4,12 +4,12 @@ import type { PlaylistItem } from '#types/playlist';
 import { isScheduledOrLiveMedia } from '#src/utils/liveEvent';
 import { CONTROLLERS } from '#src/ioc/types';
 import type ApiController from '#src/stores/ApiController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 
 export type UseMediaResult<TData = PlaylistItem, TError = unknown> = UseBaseQueryResult<TData, TError>;
 
 export default function useMedia(mediaId: string, enabled: boolean = true): UseMediaResult {
-  const apiController = useController<ApiController>(CONTROLLERS.Api);
+  const apiController = getController<ApiController>(CONTROLLERS.Api);
 
   return useQuery(['media', mediaId], () => apiController.getMediaById(mediaId), {
     enabled: !!mediaId && enabled,

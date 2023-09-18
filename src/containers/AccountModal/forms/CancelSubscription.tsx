@@ -9,11 +9,11 @@ import SubscriptionCancelled from '#components/SubscriptionCancelled/Subscriptio
 import { formatLocalizedDate } from '#src/utils/formatting';
 import { removeQueryParam } from '#src/utils/location';
 import type AccountController from '#src/stores/AccountController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 const CancelSubscription = () => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
 
   const { t, i18n } = useTranslation('account');
   const navigate = useNavigate();

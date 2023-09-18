@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 
 import ErrorPage from '#components/ErrorPage/ErrorPage';
 import AccountModal from '#src/containers/AccountModal/AccountModal';
@@ -12,14 +12,16 @@ import DevConfigSelector from '#components/DevConfigSelector/DevConfigSelector';
 import { cleanupQueryParams, getConfigSource } from '#src/utils/configOverride';
 import AppRoutes from '#src/containers/AppRoutes/AppRoutes';
 import registerCustomScreens from '#src/screenMapping';
+import { useAccountStore } from '#src/stores/AccountStore';
+import { useProfileStore } from '#src/stores/ProfileStore';
 import { initApp } from '#src/init/initApp';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 import type SettingsController from '#src/stores/SettingsController';
 
 const Root: FC = () => {
   const { t } = useTranslation('error');
-  const settingsController = useController<SettingsController>(CONTROLLERS.Settings);
+  const settingsController = getController<SettingsController>(CONTROLLERS.Settings);
 
   const settingsQuery = useQuery('settings-init', () => settingsController.initSettings(), {
     enabled: true,
@@ -47,6 +49,18 @@ const Root: FC = () => {
   useEffect(() => {
     registerCustomScreens();
   }, []);
+
+  const userData = useAccountStore((s) => ({ loading: s.loading, user: s.user }));
+
+  const { profile, selectingProfileAvatar } = useProfileStore();
+
+  if (userData.user && selectingProfileAvatar !== null) {
+    return <LoadingOverlay profileImageUrl={selectingProfileAvatar || profile?.avatar_url} />;
+  }
+
+  if (userData.user && !userData.loading && window.location.href.includes('#token')) {
+    return <Navigate to="/" />; // component instead of hook to prevent extra re-renders
+  }
 
   const IS_DEMO_OR_PREVIEW = IS_DEMO_MODE || IS_PREVIEW_MODE;
 

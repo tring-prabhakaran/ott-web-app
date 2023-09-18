@@ -13,7 +13,7 @@ vi.mock('../SocialButton/SocialButton.tsx', () => ({
 }));
 
 vi.mock('#src/ioc/container', () => ({
-  useController: (type: symbol) => {
+  getController: (type: symbol) => {
     switch (type) {
       case CONTROLLERS.Account:
         return {

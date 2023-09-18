@@ -9,7 +9,7 @@ import useQueryParam from '#src/hooks/useQueryParam';
 import { useAccountStore } from '#src/stores/AccountStore';
 import PayPal from '#components/PayPal/PayPal';
 import type CheckoutController from '#src/stores/CheckoutController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 };
 
 const UpdatePaymentMethod = ({ onCloseButtonClick }: Props) => {
-  const checkoutController = useController<CheckoutController>(CONTROLLERS.Checkout);
+  const checkoutController = getController<CheckoutController>(CONTROLLERS.Checkout);
 
   const updateSuccess = useQueryParam('u') === 'payment-method-success';
   const paymentMethodIdQueryParam = useQueryParam('paymentMethodId');

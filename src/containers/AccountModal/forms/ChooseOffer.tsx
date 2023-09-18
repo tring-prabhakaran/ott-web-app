@@ -17,7 +17,7 @@ import type { Subscription } from '#types/subscription';
 import useEventCallback from '#src/hooks/useEventCallback';
 import { logDev } from '#src/utils/common';
 import type CheckoutController from '#src/stores/CheckoutController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 const determineSwitchDirection = (subscription: Subscription | null) => {
@@ -33,7 +33,7 @@ const determineSwitchDirection = (subscription: Subscription | null) => {
 };
 
 const ChooseOffer = () => {
-  const checkoutController = useController<CheckoutController>(CONTROLLERS.Checkout);
+  const checkoutController = getController<CheckoutController>(CONTROLLERS.Checkout);
 
   const navigate = useNavigate();
   const location = useLocation();

@@ -6,7 +6,7 @@ import useClientIntegration from './useClientIntegration';
 
 import { addQueryParam } from '#src/utils/location';
 import type AccountController from '#src/stores/AccountController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 type intervalCheckAccessPayload = {
@@ -16,7 +16,7 @@ type intervalCheckAccessPayload = {
 };
 
 const useCheckAccess = () => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
 
   const intervalRef = useRef<number>();
   const navigate = useNavigate();

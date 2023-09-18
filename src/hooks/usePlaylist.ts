@@ -8,12 +8,12 @@ import { isTruthyCustomParamValue } from '#src/utils/common';
 import type { ApiError } from '#src/utils/api';
 import { CONTROLLERS } from '#src/ioc/types';
 import type ApiController from '#src/stores/ApiController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 
 const placeholderData = generatePlaylistPlaceholder(30);
 
 export default function usePlaylist(playlistId?: string, params: GetPlaylistParams = {}, enabled: boolean = true, usePlaceholderData: boolean = true) {
-  const apiController = useController<ApiController>(CONTROLLERS.Api);
+  const apiController = getController<ApiController>(CONTROLLERS.Api);
 
   const callback = async (playlistId?: string, params?: GetPlaylistParams) => {
     const playlist = await apiController.getPlaylistById(playlistId, { ...params });

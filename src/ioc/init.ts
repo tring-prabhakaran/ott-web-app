@@ -29,6 +29,8 @@ import EpgController from '#src/stores/EpgController';
 import ApiController from '#src/stores/ApiController';
 import EntitlementController from '#src/stores/EntitlementController';
 import CheckoutController from '#src/stores/CheckoutController';
+import InplayerProfileService from '#src/services/inplayer.profile.service';
+import ProfileController from '#src/stores/ProfileController';
 
 const CLEENG_SERVICES = {
   [SERVICES.Cleeng]: CleengService,
@@ -41,6 +43,7 @@ const JW_SERVICES = {
   [SERVICES.Account]: AccountJWService,
   [SERVICES.Checkout]: CheckoutJWService,
   [SERVICES.Subscription]: SubscriptionJWService,
+  [SERVICES.Profile]: InplayerProfileService,
 } as const;
 
 const COMMON_CONTROLLERS = {
@@ -48,6 +51,7 @@ const COMMON_CONTROLLERS = {
   [CONTROLLERS.Favorites]: FavoritesController,
   [CONTROLLERS.Epg]: EpgController,
   [CONTROLLERS.Entitlement]: EntitlementController,
+  [CONTROLLERS.Profile]: ProfileController,
 } as const;
 
 const bindServices = (servicesMap: { [x: symbol]: new (...args: any[]) => object }) => {

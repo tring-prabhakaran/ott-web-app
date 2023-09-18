@@ -8,7 +8,7 @@ import useBreakpoint, { Breakpoint } from '#src/hooks/useBreakpoint';
 import type { PlaylistItem } from '#types/playlist';
 import { useFavoritesStore } from '#src/stores/FavoritesStore';
 import Alert from '#components/Alert/Alert';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import type FavoritesController from '#src/stores/FavoritesController';
 import { CONTROLLERS } from '#src/ioc/types';
 
@@ -19,7 +19,7 @@ type Props = {
 const FavoriteButton: React.VFC<Props> = ({ item }) => {
   const { t } = useTranslation();
   const breakpoint = useBreakpoint();
-  const favoritesController = useController<FavoritesController>(CONTROLLERS.Favorites);
+  const favoritesController = getController<FavoritesController>(CONTROLLERS.Favorites);
 
   const { isFavorite, clearWarning, warning } = useFavoritesStore((state) => ({
     isFavorite: !!item && state.hasItem(item),

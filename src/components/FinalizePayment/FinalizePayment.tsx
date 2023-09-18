@@ -12,13 +12,13 @@ import { useConfigStore } from '#src/stores/ConfigStore';
 import { replaceQueryParam, removeQueryParam, addQueryParam } from '#src/utils/location';
 import type AccountController from '#src/stores/AccountController';
 import type CheckoutController from '#src/stores/CheckoutController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 import { ACCESS_MODEL } from '#src/config';
 
 const FinalizePayment = () => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
-  const checkoutController = useController<CheckoutController>(CONTROLLERS.Checkout);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
+  const checkoutController = getController<CheckoutController>(CONTROLLERS.Checkout);
 
   const { t } = useTranslation('account');
   const navigate = useNavigate();

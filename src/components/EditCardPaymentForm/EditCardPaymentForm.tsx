@@ -16,7 +16,7 @@ import styles from './EditCardPaymentForm.module.scss';
 import useForm from '#src/hooks/useForm';
 import { useAccountStore } from '#src/stores/AccountStore';
 import type AccountController from '#src/stores/AccountController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
 };
 
 const EditCardPaymentForm: React.FC<Props> = ({ onCancel, setUpdatingCardDetails }) => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
 
   const { t } = useTranslation('account');
   const updateCard = useMutation((args: { cardName: string; cardNumber: string; cvc: number; expMonth: number; expYear: number; currency: string }) =>

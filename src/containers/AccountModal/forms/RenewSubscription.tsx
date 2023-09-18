@@ -9,11 +9,11 @@ import RenewSubscriptionForm from '#components/RenewSubscriptionForm/RenewSubscr
 import SubscriptionRenewed from '#components/SubscriptionRenewed/SubscriptionRenewed';
 import { removeQueryParam } from '#src/utils/location';
 import type AccountController from '#src/stores/AccountController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 const RenewSubscription = () => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
 
   const navigate = useNavigate();
   const location = useLocation();

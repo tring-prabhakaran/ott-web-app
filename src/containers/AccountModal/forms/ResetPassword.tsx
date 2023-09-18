@@ -14,7 +14,7 @@ import LoadingOverlay from '#components/LoadingOverlay/LoadingOverlay';
 import { addQueryParam, removeQueryParam } from '#src/utils/location';
 import { logDev } from '#src/utils/common';
 import type AccountController from '#src/stores/AccountController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 type Prop = {
@@ -22,7 +22,7 @@ type Prop = {
 };
 
 const ResetPassword: React.FC<Prop> = ({ type }: Prop) => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
 
   const { t } = useTranslation('account');
   const navigate = useNavigate();

@@ -10,7 +10,7 @@ import { addQueryParams } from '#src/utils/formatting';
 import type { AdyenPaymentSession } from '#types/checkout';
 import { CONTROLLERS } from '#src/ioc/types';
 import type CheckoutController from '#src/stores/CheckoutController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import type AccountController from '#src/stores/AccountController';
 
 type Props = {
@@ -22,8 +22,8 @@ type Props = {
 };
 
 export default function AdyenInitialPayment({ setUpdatingOrder, type, setPaymentError, paymentSuccessUrl, orderId }: Props) {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
-  const checkoutController = useController<CheckoutController>(CONTROLLERS.Checkout);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
+  const checkoutController = getController<CheckoutController>(CONTROLLERS.Checkout);
 
   const [session, setSession] = useState<AdyenPaymentSession>();
 

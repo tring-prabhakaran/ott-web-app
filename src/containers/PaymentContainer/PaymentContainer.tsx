@@ -13,13 +13,13 @@ import useOffers from '#src/hooks/useOffers';
 import { useSubscriptionChange } from '#src/hooks/useSubscriptionChange';
 import type AccountController from '#src/stores/AccountController';
 import type CheckoutController from '#src/stores/CheckoutController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 import { ACCESS_MODEL } from '#src/config';
 
 const PaymentContainer = () => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
-  const checkoutController = useController<CheckoutController>(CONTROLLERS.Checkout);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
+  const checkoutController = getController<CheckoutController>(CONTROLLERS.Checkout);
 
   const { accessModel } = useConfigStore(
     (s) => ({

@@ -10,7 +10,7 @@ import { isLocked } from '#src/utils/entitlements';
 import { useConfigStore } from '#src/stores/ConfigStore';
 import { useAccountStore } from '#src/stores/AccountStore';
 import type CheckoutController from '#src/stores/CheckoutController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 export type UseEntitlementResult = {
@@ -50,7 +50,7 @@ const useEntitlement: UseEntitlement = (playlistItem) => {
 
   if (user?.id) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    checkoutController = useController<CheckoutController>(CONTROLLERS.Checkout);
+    checkoutController = getController<CheckoutController>(CONTROLLERS.Checkout);
   }
 
   const isPreEntitled = playlistItem && !isLocked(accessModel, !!user, !!subscription, playlistItem);

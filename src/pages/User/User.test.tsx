@@ -67,7 +67,7 @@ const data = {
 };
 
 vi.mock('#src/ioc/container', () => ({
-  useController: (type: symbol) => {
+  getController: (type: symbol) => {
     switch (type) {
       case CONTROLLERS.Favorites:
         return { clear: vi.fn() };

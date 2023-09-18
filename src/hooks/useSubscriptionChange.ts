@@ -4,7 +4,7 @@ import { useAccountStore } from '#src/stores/AccountStore';
 import type { Customer, EmailConfirmPasswordInput, FirstLastNameInput } from '#types/account';
 import type AccountController from '#src/stores/AccountController';
 import type CheckoutController from '#src/stores/CheckoutController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 
 export const useSubscriptionChange = (
@@ -13,8 +13,8 @@ export const useSubscriptionChange = (
   customer: Customer | null,
   activeSubscriptionId: string | number | undefined,
 ) => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
-  const checkoutController = useController<CheckoutController>(CONTROLLERS.Checkout);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
+  const checkoutController = getController<CheckoutController>(CONTROLLERS.Checkout);
 
   const updateSubscriptionMetadata = useMutation((args: FirstLastNameInput | EmailConfirmPasswordInput) => accountController.updateUser(args), {
     onSuccess: () => {

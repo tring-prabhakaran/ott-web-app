@@ -4,7 +4,7 @@ import type { JWPlayer } from '#types/jwplayer';
 import type { PlaylistItem } from '#types/playlist';
 import useEventCallback from '#src/hooks/useEventCallback';
 import { useConfigStore } from '#src/stores/ConfigStore';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 import type WatchHistoryController from '#src/stores/WatchHistoryController';
 
@@ -34,7 +34,7 @@ const PROGRESSIVE_SAVE_INTERVAL = 300_000; // 5 minutes
  */
 export const useWatchHistoryListener = (player: JWPlayer | undefined, item: PlaylistItem, seriesItem?: PlaylistItem) => {
   const queuedWatchProgress = useRef<QueuedProgress | null>(null);
-  const watchHistoryController = useController<WatchHistoryController>(CONTROLLERS.WatchHistory);
+  const watchHistoryController = getController<WatchHistoryController>(CONTROLLERS.WatchHistory);
 
   // config
   const { features } = useConfigStore((s) => s.config);

@@ -12,7 +12,7 @@ import { addQueryParam } from '#src/utils/location';
 import type { CaptureCustomAnswer, CleengCaptureQuestionField, PersonalDetailsFormData } from '#types/account';
 import useOffers from '#src/hooks/useOffers';
 import type AccountController from '#src/stores/AccountController';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 import { CONTROLLERS } from '#src/ioc/types';
 import { ACCESS_MODEL } from '#src/config';
 
@@ -21,7 +21,7 @@ const yupConditional = (required: boolean, message: string) => {
 };
 
 const PersonalDetails = () => {
-  const accountController = useController<AccountController>(CONTROLLERS.Account);
+  const accountController = getController<AccountController>(CONTROLLERS.Account);
 
   const navigate = useNavigate();
   const location = useLocation();

@@ -7,7 +7,7 @@ import { getLiveProgram, programIsLive } from '#src/utils/epg';
 import { LIVE_CHANNELS_REFETCH_INTERVAL } from '#src/config';
 import type EpgController from '#src/stores/EpgController';
 import { CONTROLLERS } from '#src/ioc/types';
-import { useController } from '#src/ioc/container';
+import { getController } from '#src/ioc/container';
 
 /**
  * This hook fetches the schedules for the given list of playlist items and manages the current channel and program.
@@ -32,7 +32,7 @@ const useLiveChannels = ({
   initialChannelId: string | undefined;
   enableAutoUpdate?: boolean;
 }) => {
-  const epgController = useController<EpgController>(CONTROLLERS.Epg);
+  const epgController = getController<EpgController>(CONTROLLERS.Epg);
 
   const { data: channels = [] } = useQuery(['schedules', ...playlist.map(({ mediaid }) => mediaid)], () => epgController.getSchedules(playlist), {
     refetchInterval: LIVE_CHANNELS_REFETCH_INTERVAL,

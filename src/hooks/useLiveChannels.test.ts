@@ -17,7 +17,7 @@ const scheduleUpdate: EpgChannel[] = epgChannelsUpdateFixture;
 const mockSchedule = vi.fn();
 
 vi.mock('#src/ioc/container', () => ({
-  useController: (type: symbol) => {
+  getController: (type: symbol) => {
     switch (type) {
       case CONTROLLERS.Epg:
         return { getSchedules: mockSchedule };
