@@ -20,7 +20,7 @@ import UserMenu from '#components/UserMenu/UserMenu';
 import { addQueryParam } from '#src/utils/location';
 import { getSupportedLanguages } from '#src/i18n/config';
 import { useProfileStore } from '#src/stores/ProfileStore';
-import { unpersistProfile, useProfiles } from '#src/hooks/useProfiles';
+import { unpersistProfile, useProfiles, useSelectProfile } from '#src/hooks/useProfiles';
 
 const Layout = () => {
   const location = useLocation();
@@ -40,6 +40,8 @@ const Layout = () => {
   if (profilesEnabled && !profiles?.length) {
     unpersistProfile();
   }
+
+  const selectProfile = useSelectProfile();
 
   const { searchQuery, searchActive, userMenuOpen, languageMenuOpen } = useUIStore(
     ({ searchQuery, searchActive, userMenuOpen, languageMenuOpen }) => ({
@@ -152,6 +154,8 @@ const Layout = () => {
           currentProfile={profile ?? undefined}
           profiles={profiles}
           profilesEnabled={profilesEnabled}
+          selectProfile={selectProfile.mutate}
+          isSelectingProfile={!!selectProfile.isLoading}
           accessModel={accessModel}
         >
           <Button label={t('home')} to="/" variant="text" />

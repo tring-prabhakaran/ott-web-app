@@ -62,6 +62,7 @@
   "login": {
     "field_required": ""
   },
+  "name": "",
   "nav": {
     "account": "Cuenta",
     "add_profile": "",
@@ -125,6 +126,8 @@
     "delete_description": "",
     "delete_main": "",
     "description": "",
+    "done": "",
+    "edit": "",
     "form_error": "",
     "info": "",
     "kids": "",
