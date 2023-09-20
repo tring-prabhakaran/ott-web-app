@@ -118,9 +118,11 @@
   "profile": {
     "adult": "",
     "avatar": "",
+    "back_to_profiles": "",
     "content_rating": "",
-    "create": "",
     "create_message": "",
+    "created_message": "",
+    "created_title": "",
     "delete": "",
     "delete_confirmation": "",
     "delete_description": "",
@@ -138,6 +140,7 @@
         "required": "",
         "too_short": ""
       }
-    }
+    },
+    "watch_now": ""
   }
 }
