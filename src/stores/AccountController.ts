@@ -48,9 +48,7 @@ export const initializeAccount = async () => {
       canShowReceipts: accountService.canShowReceipts,
     });
 
-    useProfileStore.setState({
-      profile: persist.getItem(PERSIST_PROFILE) || null,
-    });
+    useProfileStore.getState().setProfile(persist.getItem(PERSIST_PROFILE) || null);
 
     await accountService.initialize(config, logout);
 
